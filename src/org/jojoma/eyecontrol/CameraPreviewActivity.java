@@ -34,7 +34,9 @@ import com.qualcomm.snapdragon.sdk.face.FaceData;
 import com.qualcomm.snapdragon.sdk.face.FacialProcessing;
 import com.qualcomm.snapdragon.sdk.face.FacialProcessing.FP_MODES;
 import com.qualcomm.snapdragon.sdk.face.FacialProcessing.PREVIEW_ROTATION_ANGLE;
+import com.redbear.protocol.RBLProtocol;
 import com.redbear.redbearbleclient.R;
+import com.redbear.redbearbleclient.StandardViewFragmentForPinsEx;
 
 import java.util.EnumSet;
 
@@ -158,9 +160,10 @@ public class CameraPreviewActivity extends Activity implements Camera.PreviewCal
 
            @Override
            public void run(){
+               RBLProtocol rblProtocol = StandardViewFragmentForPinsEx.mRblProtocol;
                // Save params
-               double h = horizontalGaze*0.3 + yaw*0.7;
-               double v = verticalGaze*0.3 + pitch*0.7;
+               double h = horizontalGaze*0.5 + yaw*0.5;
+               double v = verticalGaze*0.5 + pitch*0.5;
 
                eyeControl.addValueHorizontal((int) h);
                eyeControl.addValueVertical((int) v);
@@ -192,10 +195,14 @@ public class CameraPreviewActivity extends Activity implements Camera.PreviewCal
                    int x = 0;
                    int y = 0;
                    if (eyeControl.stateVertical == State.UP_AIM) {
+                       rblProtocol.setPinMode(5, 1);
+                       rblProtocol.digitalWrite(5, 1);
                        verticalGazeText.setText("VerticalGaze: " + "ARRIBA");
                        y = -20;
                    }
                    else if (eyeControl.stateVertical == State.DOWN_AIM){
+                       rblProtocol.setPinMode(3, 1);
+                       rblProtocol.digitalWrite(3, 1);
                        verticalGazeText.setText("VerticalGaze: " + "ABAJO");
                        y = +20;
                    }
@@ -203,10 +210,14 @@ public class CameraPreviewActivity extends Activity implements Camera.PreviewCal
                        y = 0;
                    }
                    if (eyeControl.stateHorizontal == State.RIGHT_AIM){
+                       rblProtocol.setPinMode(2, 1);
+                       rblProtocol.digitalWrite(2, 1);
                        horizontalGazeText.setText("Horizontal Gaze: " + "DERECHA");
                         x = 20;
                    }
                    else if (eyeControl.stateHorizontal == State.LEFT_AIM){
+                       rblProtocol.setPinMode(1, 1);
+                       rblProtocol.digitalWrite(1, 1);
                        horizontalGazeText.setText("Horizontal Gaze: " + "IZQUIERDA");
                        x = -20;
                    }

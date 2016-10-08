@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.bluetooth.BluetoothProfile;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -45,9 +46,12 @@ import com.redbear.protocol.RBLProtocol;
 import com.redbear.redbearbleclient.MainPage.Device;
 import com.redbear.redbearbleclient.data.PinInfo;
 
+import org.jojoma.eyecontrol.CameraPreviewActivity;
+
 public class StandardViewFragmentForPinsEx extends Fragment implements
 		IRBLProtocol {
 
+	public static RBLProtocol mRblProtocol;
 	final String TAG = "StandardViewFragmentForPins";
 	final long timeout = 3000;
 	public static final int RST_CODE = 10;
@@ -99,6 +103,7 @@ public class StandardViewFragmentForPinsEx extends Fragment implements
 			textRssi.setText("Rssi : " + mDevice.rssi);
 
 			mProtocol = new RBLProtocol(mDevice.address);
+			mRblProtocol = mProtocol;
 			mProtocol.setIRBLProtocol(this);
 		}
 
@@ -124,6 +129,9 @@ public class StandardViewFragmentForPinsEx extends Fragment implements
 				}
 			}
 		};
+
+		Intent intent = new Intent(getActivity(), CameraPreviewActivity.class);
+		startActivity(intent);
 
 		return view;
 	}
