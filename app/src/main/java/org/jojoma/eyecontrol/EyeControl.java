@@ -1,4 +1,4 @@
-package org.jojoma.safe;
+package org.jojoma.eyecontrol;
 
 import java.util.ArrayList;
 

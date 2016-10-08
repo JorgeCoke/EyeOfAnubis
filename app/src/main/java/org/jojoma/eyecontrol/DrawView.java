@@ -1,4 +1,4 @@
-package org.jojoma.safe;
+package org.jojoma.eyecontrol;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -8,7 +8,6 @@ import android.graphics.Point;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.Rect;
 import android.hardware.Camera;
-import android.util.Log;
 import android.view.SurfaceView;
 
 import com.qualcomm.snapdragon.sdk.face.FaceData;

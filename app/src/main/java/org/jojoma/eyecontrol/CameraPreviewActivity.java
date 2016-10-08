@@ -1,14 +1,10 @@
-package org.jojoma.safe;
+package org.jojoma.eyecontrol;
 
-import java.io.IOException;
 import java.util.EnumSet;
-import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.NotificationManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Canvas;
@@ -22,7 +18,6 @@ import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;

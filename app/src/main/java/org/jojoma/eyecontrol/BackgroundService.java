@@ -1,4 +1,4 @@
-package org.jojoma.safe;
+package org.jojoma.eyecontrol;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -13,7 +13,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.Display;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -21,7 +20,6 @@ import android.widget.Toast;
 import com.qualcomm.snapdragon.sdk.face.FacialProcessing;
 
 import java.io.IOException;
-import java.util.List;
 
 import static android.content.ContentValues.TAG;
 

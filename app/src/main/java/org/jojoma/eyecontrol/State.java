@@ -1,4 +1,4 @@
-package org.jojoma.safe;
+package org.jojoma.eyecontrol;
 
 /**
  * Created by cokelas on 7/10/16.

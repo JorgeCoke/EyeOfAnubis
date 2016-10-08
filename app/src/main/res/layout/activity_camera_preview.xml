@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/black"
-    tools:context="org.jojoma.safe.CameraPreviewActivity" >
+    tools:context="org.jojoma.eyecontrol.CameraPreviewActivity" >
 
     <FrameLayout
         android:id="@+id/camera_preview"
