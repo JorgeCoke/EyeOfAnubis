@@ -15,8 +15,6 @@ public class EyeControl {
     public Double meanHorizontal;
     public Double meanVertical;
 
-
-
     public EyeControl(){
         stateHorizontal = null;
         stateVertical = null;
@@ -80,18 +78,25 @@ public class EyeControl {
     }
 
     public void updateState(){
-        if (getMeanHorizontal() > meanHorizontal+3){
+        if (getMeanHorizontal() > meanHorizontal+10){
             stateHorizontal = State.RIGHT_AIM;
         }
-        else if (getMeanHorizontal() < meanHorizontal-3){
+        else if (getMeanHorizontal() < meanHorizontal-10){
             stateHorizontal = State.LEFT_AIM;
         }
-        if (getMeanVertical() > meanVertical+3){
+        else{
+            stateHorizontal = null;
+        }
+        if (getMeanVertical() > meanVertical+2){
             stateVertical = State.UP_AIM;
         }
-        else if (getMeanVertical() < meanVertical-3){
+        else if (getMeanVertical() < meanVertical-2){
             stateVertical = State.DOWN_AIM;
         }
+        else{
+            stateVertical = null;
+        }
+
     }
 
 

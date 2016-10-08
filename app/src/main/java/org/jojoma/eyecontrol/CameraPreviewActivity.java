@@ -26,9 +26,11 @@ import android.view.OrientationEventListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
+import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
@@ -84,12 +86,12 @@ public class CameraPreviewActivity extends Activity implements Camera.PreviewCal
     Display display;
     int displayAngle;
 
-    public static final int TIMES_TO_CALIBRATE = 25;
+    public static final int TIMES_TO_CALIBRATE = 10;
     boolean calibrating = true;
     int calibratedTimes = 0;
     Handler handler;
     Runnable periodicTask;
-    static final long TASK_PERIOD = 200;
+    static final long TASK_PERIOD = 100;
 
     final static int COLOR_20 = Color.parseColor("#99e527");
     final static int COLOR_40 = Color.parseColor("#dfe527");
@@ -102,6 +104,8 @@ public class CameraPreviewActivity extends Activity implements Camera.PreviewCal
     TextView loading;
 
     EyeControl eyeControl = new EyeControl();
+    RelativeLayout rl;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,6 +152,9 @@ public class CameraPreviewActivity extends Activity implements Camera.PreviewCal
 
         alertIcon = (ImageView) findViewById(R.id.alertIcon);
 
+        rl = (RelativeLayout) findViewById(R.id.relative_layout);
+
+
         mp = MediaPlayer.create(this,R.raw.alarm);
 
         handler = new Handler();
@@ -156,8 +163,11 @@ public class CameraPreviewActivity extends Activity implements Camera.PreviewCal
            @Override
            public void run(){
                // Save params
-               eyeControl.addValueHorizontal(horizontalGaze);
-               eyeControl.addValueVertical(verticalGaze);
+               double h = horizontalGaze*0.3 + yaw*0.7;
+               double v = verticalGaze*0.3 + pitch*0.7;
+
+               eyeControl.addValueHorizontal((int) h);
+               eyeControl.addValueVertical((int) v);
 
                Log.d(TAG, "calibrating: " + calibrating);
                // Check if frame is used to calibrate
@@ -173,6 +183,8 @@ public class CameraPreviewActivity extends Activity implements Camera.PreviewCal
                        eyeControl.updateMeanVertical();
                        horizontalGazeText.setText("Horizontal Gaze: " + eyeControl.meanHorizontal);
                        verticalGazeText.setText("VerticalGaze: " + eyeControl.meanVertical);
+                       alertIcon.setX(500);
+                       alertIcon.setY(500);
                        calibrating = false;
                    }
                }
@@ -181,18 +193,31 @@ public class CameraPreviewActivity extends Activity implements Camera.PreviewCal
                    mProgress.setVisibility(View.INVISIBLE);
 
                    eyeControl.updateState();
+                   int x = 0;
+                   int y = 0;
                    if (eyeControl.stateVertical == State.UP_AIM) {
                        verticalGazeText.setText("VerticalGaze: " + "ARRIBA");
+                       y = -20;
                    }
                    else if (eyeControl.stateVertical == State.DOWN_AIM){
                        verticalGazeText.setText("VerticalGaze: " + "ABAJO");
+                       y = +20;
+                   }
+                   else{
+                       y = 0;
                    }
                    if (eyeControl.stateHorizontal == State.RIGHT_AIM){
                        horizontalGazeText.setText("Horizontal Gaze: " + "DERECHA");
+                        x = 20;
                    }
                    else if (eyeControl.stateHorizontal == State.LEFT_AIM){
                        horizontalGazeText.setText("Horizontal Gaze: " + "IZQUIERDA");
+                       x = -20;
                    }
+                   else{
+                       x = 0;
+                   }
+                   moveImg(alertIcon,x,y);
 
                }
                // Delay N millis
@@ -238,6 +263,15 @@ public class CameraPreviewActivity extends Activity implements Camera.PreviewCal
 
         // Start the periodic task
         handler.post(periodicTask);
+    }
+
+    private void moveImg (ImageView img, int x, int y){
+
+        int[] values = new int[2];
+        alertIcon.getLocationOnScreen(values);
+        alertIcon.setX(x + values[0]);
+        alertIcon.setY(y + values[1]);
+
     }
 
     private void orientationListener() {
@@ -410,21 +444,22 @@ public class CameraPreviewActivity extends Activity implements Camera.PreviewCal
         int dRotation = display.getRotation();
         PREVIEW_ROTATION_ANGLE angleEnum = PREVIEW_ROTATION_ANGLE.ROT_0;
 
+        //TODO: Para rotar camara hay que sumar 180 grados a cada displayAngle y a angleEnum
         switch (dRotation) {
         case 0:
-            displayAngle = 270;
-            angleEnum = PREVIEW_ROTATION_ANGLE.ROT_270;
+            displayAngle = 90;
+            angleEnum = PREVIEW_ROTATION_ANGLE.ROT_90;
             break;
         case 1:
-            displayAngle = 180;
-            angleEnum = PREVIEW_ROTATION_ANGLE.ROT_180;
+            displayAngle = 0;
+            angleEnum = PREVIEW_ROTATION_ANGLE.ROT_0;
             break;
         case 2:
             // This case is never reached.
             break;
         case 3:
-            displayAngle = 0;
-            angleEnum = PREVIEW_ROTATION_ANGLE.ROT_0;
+            displayAngle = 180;
+            angleEnum = PREVIEW_ROTATION_ANGLE.ROT_180;
             break;
         }
 

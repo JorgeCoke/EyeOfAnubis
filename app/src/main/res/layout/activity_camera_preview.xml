@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/black"
-    tools:context="org.jojoma.eyecontrol.CameraPreviewActivity" >
+    tools:context="org.jojoma.eyecontrol.CameraPreviewActivity"
+
+	>
 
     <FrameLayout
         android:id="@+id/camera_preview"
@@ -184,9 +186,13 @@
 
 	<ImageView
 		android:id="@+id/alertIcon"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
+		android:layout_width="50dp"
+		android:layout_height="50dp"
 		android:src="@drawable/alert_icon"
-		android:layout_centerInParent="true"
-		android:visibility="invisible"/>
+		android:visibility="visible"/>
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:id="@+id/relative_layout"></RelativeLayout>
 </RelativeLayout>
