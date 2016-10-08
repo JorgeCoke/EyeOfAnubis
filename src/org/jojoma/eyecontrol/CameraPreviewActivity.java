@@ -148,7 +148,7 @@ public class CameraPreviewActivity extends Activity implements Camera.PreviewCal
 
         alertIcon = (ImageView) findViewById(R.id.alertIcon);
 
-        rl = (RelativeLayout) findViewById(R.id.relative_layout);
+        //rl = (RelativeLayout) findViewById(R.id.relative_layout);
 
 
         mp = MediaPlayer.create(this,R.raw.alarm);
@@ -213,8 +213,8 @@ public class CameraPreviewActivity extends Activity implements Camera.PreviewCal
                    else{
                        x = 0;
                    }
+                   //Log.e("TAG", eyeControl.stateVertical.name());
                    moveImg(alertIcon,x,y);
-
                }
                // Delay N millis
                handler.postDelayed(periodicTask, TASK_PERIOD);
@@ -264,9 +264,11 @@ public class CameraPreviewActivity extends Activity implements Camera.PreviewCal
     private void moveImg (ImageView img, int x, int y){
 
         int[] values = new int[2];
-        alertIcon.getLocationOnScreen(values);
-        alertIcon.setX(x + values[0]);
-        alertIcon.setY(y + values[1]);
+        //img.getLocationInWindow(values);
+        img.getLocationOnScreen(values);
+        Log.e("TAG", "val0: " + values[0] + " val1: " + values[1] + "x: " + x + " y " + y);
+        img.setX(x + values[0]);
+        img.setY(y + values[1]);
 
     }
 

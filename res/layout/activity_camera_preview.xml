@@ -170,17 +170,14 @@
 			android:text="@string/calibrating"
 			android:textColor="@color/white" />
 
+		<ImageView
+			android:id="@+id/alertIcon"
+			android:layout_width="50dp"
+			android:layout_height="50dp"
+			android:src="@drawable/alert_icon"
+			android:visibility="visible"/>
+
 	</LinearLayout>
 
-	<ImageView
-		android:id="@+id/alertIcon"
-		android:layout_width="50dp"
-		android:layout_height="50dp"
-		android:src="@drawable/alert_icon"
-		android:visibility="visible"/>
 
-	<RelativeLayout
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:id="@+id/relative_layout"></RelativeLayout>
 </RelativeLayout>

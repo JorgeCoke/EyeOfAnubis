@@ -87,10 +87,10 @@ public class EyeControl {
         else{
             stateHorizontal = null;
         }
-        if (getMeanVertical() > meanVertical+2){
+        if (getMeanVertical() > meanVertical+10){
             stateVertical = State.UP_AIM;
         }
-        else if (getMeanVertical() < meanVertical-2){
+        else if (getMeanVertical() < meanVertical-10){
             stateVertical = State.DOWN_AIM;
         }
         else{
