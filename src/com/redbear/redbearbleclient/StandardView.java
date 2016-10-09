@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.redbear.RedBearService.RedBearService;
+import com.redbear.protocol.RBLProtocol;
 import com.redbear.redbearbleclient.MainPage.Device;
 
 /**

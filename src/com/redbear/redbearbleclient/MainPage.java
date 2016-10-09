@@ -30,6 +30,7 @@ import android.widget.TextView;
 
 import com.redbear.RedBearService.IRedBearServiceEventListener;
 import com.redbear.RedBearService.RedBearService;
+import com.redbear.protocol.RBLProtocol;
 import com.redbear.redbearbleclient.view.PullRefreshListView;
 import com.redbear.redbearbleclient.view.PullRefreshListView.OnRefreshListener;
 import com.redbear.redbearbleclient.view.listviewanimation.ArrayAdapter;
@@ -169,6 +170,8 @@ if (android.os.Build.VERSION.SDK_INT >= 18) {
 	 */
 	public static class MainPageFragment extends Fragment {
 
+		public static RBLProtocol rblProtocol;
+
 		MyListAdapter adapter;
 
 		PullRefreshListView listView;
@@ -302,6 +305,7 @@ if (android.os.Build.VERSION.SDK_INT >= 18) {
 					mDevice = mArrayList.get(position - 1);
 
 					mBearService.connectDevice(mDevice.address, false);
+					rblProtocol = new RBLProtocol(mDevice.address);
 
 					//TODO: Listener cuando haces click en un dispositivo
 					Intent intent = new Intent(view.getContext(), CameraPreviewActivity.class);

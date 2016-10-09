@@ -78,10 +78,10 @@ public class EyeControl {
     }
 
     public void updateState(){
-        if (getMeanHorizontal() > meanHorizontal+10){
+        if (getMeanHorizontal() > meanHorizontal+15){
             stateHorizontal = State.RIGHT_AIM;
         }
-        else if (getMeanHorizontal() < meanHorizontal-10){
+        else if (getMeanHorizontal() < meanHorizontal-15){
             stateHorizontal = State.LEFT_AIM;
         }
         else{

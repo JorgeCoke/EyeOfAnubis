@@ -35,7 +35,9 @@ import com.qualcomm.snapdragon.sdk.face.FacialProcessing;
 import com.qualcomm.snapdragon.sdk.face.FacialProcessing.FP_MODES;
 import com.qualcomm.snapdragon.sdk.face.FacialProcessing.PREVIEW_ROTATION_ANGLE;
 import com.redbear.protocol.RBLProtocol;
+import com.redbear.redbearbleclient.MainPage;
 import com.redbear.redbearbleclient.R;
+import com.redbear.redbearbleclient.StandardView;
 import com.redbear.redbearbleclient.StandardViewFragmentForPinsEx;
 
 import java.util.EnumSet;
@@ -104,6 +106,7 @@ public class CameraPreviewActivity extends Activity implements Camera.PreviewCal
     EyeControl eyeControl = new EyeControl();
     RelativeLayout rl;
 
+    RBLProtocol rblProtocol;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,7 +163,16 @@ public class CameraPreviewActivity extends Activity implements Camera.PreviewCal
 
            @Override
            public void run(){
-               RBLProtocol rblProtocol = StandardViewFragmentForPinsEx.mRblProtocol;
+               rblProtocol = MainPage.MainPageFragment.rblProtocol;
+               // triestate enable
+               rblProtocol.setPinMode(3, 1);
+               rblProtocol.digitalWrite(3, 1);
+               // set servos
+               // 8 => left engine
+               rblProtocol.setPinMode(8, 2);
+               // 5 => right engine
+               rblProtocol.setPinMode(5, 2);
+
                // Save params
                double h = horizontalGaze*0.5 + yaw*0.5;
                double v = verticalGaze*0.5 + pitch*0.5;
@@ -195,33 +207,39 @@ public class CameraPreviewActivity extends Activity implements Camera.PreviewCal
                    int x = 0;
                    int y = 0;
                    if (eyeControl.stateVertical == State.UP_AIM) {
-                       rblProtocol.setPinMode(5, 1);
-                       rblProtocol.digitalWrite(5, 1);
+                       rblProtocol.servoWrite(5, 255);
+                       rblProtocol.servoWrite(8, 255);
                        verticalGazeText.setText("VerticalGaze: " + "ARRIBA");
                        y = -20;
                    }
                    else if (eyeControl.stateVertical == State.DOWN_AIM){
-                       rblProtocol.setPinMode(3, 1);
-                       rblProtocol.digitalWrite(3, 1);
+                       rblProtocol.servoWrite(5, 0);
+                       rblProtocol.servoWrite(8, 0);
                        verticalGazeText.setText("VerticalGaze: " + "ABAJO");
                        y = +20;
                    }
                    else{
+                       rblProtocol.servoWrite(5, 0);
+                       rblProtocol.servoWrite(8, 0);
+                       // stable
                        y = 0;
                    }
                    if (eyeControl.stateHorizontal == State.RIGHT_AIM){
-                       rblProtocol.setPinMode(2, 1);
-                       rblProtocol.digitalWrite(2, 1);
+                       rblProtocol.servoWrite(8, 255);
+                       rblProtocol.servoWrite(5, 0);
                        horizontalGazeText.setText("Horizontal Gaze: " + "DERECHA");
                         x = 20;
                    }
                    else if (eyeControl.stateHorizontal == State.LEFT_AIM){
-                       rblProtocol.setPinMode(1, 1);
-                       rblProtocol.digitalWrite(1, 1);
+                       rblProtocol.servoWrite(8, 0);
+                       rblProtocol.servoWrite(5, 255);
                        horizontalGazeText.setText("Horizontal Gaze: " + "IZQUIERDA");
                        x = -20;
                    }
                    else{
+                       rblProtocol.servoWrite(8, 0);
+                       rblProtocol.servoWrite(5, 0);
+                       // stable
                        x = 0;
                    }
                    //Log.e("TAG", eyeControl.stateVertical.name());
@@ -277,7 +295,7 @@ public class CameraPreviewActivity extends Activity implements Camera.PreviewCal
         int[] values = new int[2];
         //img.getLocationInWindow(values);
         img.getLocationOnScreen(values);
-        Log.e("TAG", "val0: " + values[0] + " val1: " + values[1] + "x: " + x + " y " + y);
+        //Log.e("TAG", "val0: " + values[0] + " val1: " + values[1] + "x: " + x + " y " + y);
         img.setX(x + values[0]);
         img.setY(y + values[1]);
 
