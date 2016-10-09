@@ -1,4 +1,4 @@
-# Safetify
+# EyeOfAnubis
 
 ## Developers
 * [Marcos Canales Mayo](https://github.com/MarcosCM) 
@@ -6,7 +6,10 @@
 * [Jorge Martínez Lascorz](https://github.com/JorgeCoke)
 
 ## Description
-The application detects previous symptoms of somnolence, fatigue, distractions, etc using facial recognition, and then notifies it to the driver.
+The application uses facial recognition technology to track the eyes and de face position od the user. Once the face is tracked it is possible to use "eye-commands" to perform actions. Joining Android and Arduino via BLE (Bluetooth Low Energy)we can create a physical interface that alow us to use that "eye-commands" to all what we want (e.g. wheelchairs, drones, robots, boats, vehicles, mouse, etc...).
+For this version we have code four possible commands (i.e. looking up, looking down, looking rigth and looking left). 
+
+We have built a vehicle with two engines and a breadboard to try the performance of the eye tracker.
 
 ## Requirements
 * Android version >= 4.1.x
