@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">BLE Controller</string>
+    <string name="app_name">Eye Controller</string>
     <string name="app_name_camera">Eye Control</string>
     <string name="settingpage_name">Settings</string>
     <string name="addpage_name">Add</string>
