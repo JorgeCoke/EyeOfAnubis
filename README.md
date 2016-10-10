@@ -11,6 +11,8 @@ For this version we have code four possible commands (i.e. looking up, looking d
 
 We have built a vehicle with two engines and a breadboard to try the performance of the eye tracker.
 
+**Video demo:** https://www.youtube.com/watch?v=_5MnEo507lk
+
 ## Requirements
 * Android version >= 4.1.x
 * Qualcomm Snapdragon processor
